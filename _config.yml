@@ -20,8 +20,7 @@
 
 title: Higher Order Logic
 description: >- # this means to ignore newlines until "baseurl:"
-  Higher Order Logic
-  Concerning software development and other topics
+  Higher Order Logic. Concerning software development and other topics.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://higher-order-logic.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 github_username:  sf105
