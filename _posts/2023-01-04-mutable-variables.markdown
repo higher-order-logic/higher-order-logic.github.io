@@ -25,7 +25,7 @@ do_something_with(all_the_stuff)
 The build also included a test coverage check, and this section showed as fully covered.
 
 While experimenting with some refactoring, I replaced the variable with a function. 
-My motivation for this is to simplify the 'narrative" at the top level of the code,
+My motivation for this is to simplify the "narrative" at the top level of the code,
 pushing the detail into a supporting level, and I use mutable variables as a hint 
 for where I might do that.
 
