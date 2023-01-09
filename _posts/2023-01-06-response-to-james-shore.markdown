@@ -1,7 +1,6 @@
 ---
 layout: post
-published: false
-title:  "A response to James Shore
+title:  "A response to James Shore's Nullable pattern
 category: programming
 tags: 
   Testing
