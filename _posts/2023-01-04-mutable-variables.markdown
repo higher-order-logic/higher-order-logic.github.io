@@ -3,9 +3,9 @@ layout: post
 title:  "An unreasonable dislike of mutable variables"
 category: programming
 tags: 
-  testing
-  refactoring
-  immutability
+  Testing
+  Refactoring
+  Immutability
 ---
 
 I've had an adverse reaction to mutable variables for some time. 
