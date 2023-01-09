@@ -9,22 +9,26 @@ tags:
   Test Driven Development
 ---
 
-I've been reading James Shore's pattern language, [Testing without Mocks](https://www.jamesshore.com/v2/projects/testing-without-mocks/testing-without-mocks) with interest.
+I've been reading James Shore's pattern language, 
+[Testing without Mocks](https://www.jamesshore.com/v2/projects/testing-without-mocks/testing-without-mocks) with interest.
 It has some interesting ideas and, for me, some points of disagreement. 
 
 My first objection is to the "clickbaity" title, as if mocks were 
 some catastrophic evil, rather than one tool amongst many. An interesting
 pattern language has to be more than an opposition to a minor technique.
 
-I also see some confusion between concept and tooling. Both Dependency Injection
-and Mock Objects are concepts that are often implementated by a framework and, yes,
-most of those frameworks are not ones I would chose. Unfortunately, almost our 
+I also see some confusion between concept and tooling. James has since written 
+another post that clarifies his wariness about 
+[Dependency Injection frameworks](https://www.jamesshore.com/v2/blog/2023/the-problem-with-dependency-injection-frameworks)
+but has not yet made the same point about mocking frameworks.
+And many of the popular frameworks are not ones I would chose. Unfortunately, almost our 
 entire modern stack is based on widely-adopted but flawed implementations--
 the Unix API being a find example. 
 
 Once again, I have to take on the argument that testing interactions 
 means testing implementation. There's a fundamental disagreement here. 
-To me, for some objects the calls they make to their surrounding environment, in response to calls they receive, *is* the interesting behaviour I want to test, not a detail of implementation. 
+To me, for some objects the calls they make to their surrounding environment, 
+in response to calls they receive, *is* the interesting behaviour I want to test, not a detail of implementation. 
 
 This is not the only way to do design, but there is an established 
 approach to object design that focusses on the messages they send to each other, 
@@ -98,4 +102,69 @@ advantage for me of outside-in is that it helps me to think about and discuss wh
 we want to achieve next. Much of the rest of this process is familiar.
 
 ## Early-Visible Behaviour
+
+Agree on most of this, except for providing a getter just for testing, to me that's 
+exposing implementation because it locks in some aspect of the object's internal 
+representation. The alternative, exposing an event to be listened for, sounds like 
+a standard Mock expectation.
+
+## Testable libraries
+
+Largely agree here. This is why Ports-and-Adapters is not just for services as a whole
+but is a useful mid-level pattern within a codebase.
+
+### Collaborator-Based Isolation
+
+This is an interesting idea. I tend to build up a collection of representative constants
+that I use as markers in tests and their setup, so it would be `INVENTORY_ADDRESS` rather than
+`123 Main Street`. In our write-up of the builder pattern, we provide defaults for
+common values so that the didn't need to be specified repeatedly.
+
+### Infrastructure Wrappers
+
+Again agree. What's not made explicit is that I use Interface Discovery to pull in just the features
+my code needs from its environment, rather than providing a generic clean veneer over the external 
+service. Quite often, after a bit of refactoring, I end up with an external service translator that
+implements a small set of interfaces driven by the needs of various bits of the main code.
+
+### Narrow Integration Tests, Paranoic Telemetry
+Yes and yes
+
+## Nullables
+This is an interesting idea. My first question is whether, if one has a version of an object which
+behaves partially differently depending on circumstances, is whether this is actually more than one object
+and that the nullable part should be factored out.
+
+## Embedded Stub
+While I absolutely agree with keeping things minimal, I struggle with this one. 
+
+First, if I need to put it close to the production code to remind me to keep up to date,
+then surely I'm missing some tests somewhere? Second, a constant complaint about mocking third-party code is the
+difficulty of ensuring that it's compliant, which is why we recommend against doing that. How does one keep
+third-party code stubs compliant in this approach?
+
+## Configurable Responses
+Yes. This is exactly how we started with our fist mock testing, then we got bored of the duplication
+and wrote some supporting libraries. We kept it as simple as we could. I struggle to understand why 
+basic libraries are overkill for stubbing but not for, say, string operations or, even, unit testing.
+
+## Output Tracking
+As mentioned above, this sounds remarkably like mock expectations, with the disadvantage that one
+can't trip the debugger with all the state in place when something goes wrong. 
+
+I wrote a chapter about using the need for event listening to guide collaborator discovery in 
+the GOOS book. There was a time when introducing a listener for testing, as against using 
+the log, was a radical concept.
+
+## Fake It Once You Make It
+Again good stuff here. I have a question around the embedded use of Nullables. I like to use the back
+pressure of seeing too many parameters being passed in as a hint for missing constructs. If those 
+instances are created as default nullables, rather than being declared as an explicit dependency, then 
+I can't see that.
+
+## Replace Mocks with Nullables
+I'm seeing most of this as a shift in terminology, rather than a meaningful redesign. Maybe that's 
+useful enough. One thing I can guarantee is that if this pattern really takes off, then it will be 
+abused, and then trashed for that abuse, in ways that James never thought possible.
+
 
