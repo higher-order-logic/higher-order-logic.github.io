@@ -26,6 +26,4 @@ To me, that makes refactoring like buying an option too. I pay a premium now so 
 
 So, the next time you have to deal with implausible delivery dates, don't talk about Technical Debt. Debt is predictable and can be managed, it's just another tool. Try talking about an Unhedged Call. Now all we need is a way to price Code Smells.
 
-[^1]: There is an apocryphal story about a trader buying chocolate santa futures 
-and forgetting to sell them on. Eventually a truckload turned up at the Wall Street 
-headquarters.
+[^1]: There is an apocryphal story about a trader buying chocolate santa futures and forgetting to sell them on. Eventually a truckload of santas turned up at the Wall Street headquarters of the bank. There's also [this story](https://thedailywtf.com/articles/Special-Delivery).
